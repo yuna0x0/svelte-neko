@@ -1,6 +1,6 @@
 # svelte-neko
 
-A Svelte 4 / 5 port of [oneko.js](https://github.com/adryd325/oneko.js). 
+A Svelte 4 / 5 port of [oneko.js](https://github.com/adryd325/oneko.js).
 
 Demo: https://svelte-neko.vercel.app/
 

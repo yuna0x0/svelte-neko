@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Neko from '$lib/Neko5.svelte';
+	import Neko from '$lib/Neko.svelte';
 </script>
 
-<Neko />
+<Neko nekoImage="/oneko.gif" />

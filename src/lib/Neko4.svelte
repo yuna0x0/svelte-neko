@@ -1,40 +1,43 @@
-<svelte:options runes={true} />
-
 <script lang="ts">
-	let isReducedMotion = $state<Boolean>(true);
+	import { onMount } from 'svelte';
+	export let nekoImage: string;
+	export let tracking: boolean = true;
+	export let toggleTrackingOnClick: boolean = false;
 
-	let nekoPosX = $state(32);
-	let nekoPosY = $state(32);
+	let isReducedMotion = true;
 
-	let mousePosX = $state(0);
-	let mousePosY = $state(0);
+	let nekoPosX = 32;
+	let nekoPosY = 32;
 
-	let frameCount = $state(0);
-	let idleTime = $state(0);
-	let idleAnimation: any = $state(null);
-	let idleAnimationFrame = $state(0);
+	let mousePosX = 0;
+	let mousePosY = 0;
+
+	let frameCount = 0;
+	let idleTime = 0;
+	let idleAnimation: any = null;
+	let idleAnimationFrame = 0;
 
 	const nekoSpeed = 10;
 
-    interface SpriteSetsType {
-        idle: number[][];
-        alert: number[][];
-        scratchSelf: number[][]; 
-        scratchWallN: number[][];
-        scratchWallS: number[][];
-        scratchWallE: number[][];
-        scratchWallW: number[][];
-        tired: number[][];
-        sleeping: number[][];
-        N: number[][];
-        NE: number[][];
-        E: number[][];
-        SE: number[][];
-        S: number[][];
-        SW: number[][];
-        W: number[][];
-        NW: number[][];
-    }
+	interface SpriteSetsType {
+		idle: number[][];
+		alert: number[][];
+		scratchSelf: number[][];
+		scratchWallN: number[][];
+		scratchWallS: number[][];
+		scratchWallE: number[][];
+		scratchWallW: number[][];
+		tired: number[][];
+		sleeping: number[][];
+		N: number[][];
+		NE: number[][];
+		E: number[][];
+		SE: number[][];
+		S: number[][];
+		SW: number[][];
+		W: number[][];
+		NW: number[][];
+	}
 
 	const spriteSets: SpriteSetsType = {
 		idle: [[-3, -3]],
@@ -99,11 +102,12 @@
 		]
 	};
 
-	let lastFrameTimestamp: number = $state(0);
+	let lastFrameTimestamp: number = 0;
 
-    let backgroundPosition = $state('160px 32px');
+	let backgroundPosition = '160px 32px';
 
 	function onMouseMove(event: MouseEvent) {
+		if (!tracking) return;
 		mousePosX = event.clientX;
 		mousePosY = event.clientY;
 	}
@@ -122,8 +126,11 @@
 	}
 
 	function setSprite(name: any, frame: any) {
-        const sprite = spriteSets[name as keyof SpriteSetsType][frame % spriteSets[name as keyof SpriteSetsType].length];
-        backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
+		const sprite =
+			spriteSets[name as keyof SpriteSetsType][
+				frame % spriteSets[name as keyof SpriteSetsType].length
+			];
+		backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
 	}
 
 	function resetIdleAnimation() {
@@ -217,7 +224,13 @@
 		nekoPosY = Math.min(Math.max(16, nekoPosY), window.innerHeight - 16);
 	}
 
-	$effect(() => {
+	function onNekoClick() {
+		if (toggleTrackingOnClick) {
+			tracking = !tracking;
+		}
+	}
+
+	onMount(() => {
 		isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 		document.addEventListener('mousemove', onMouseMove);
@@ -230,21 +243,20 @@
 	});
 </script>
 
-{#if !isReducedMotion}
-	<div
-		style={`left: ${nekoPosX - 16}px; top: ${nekoPosY - 16}px; background-position: ${backgroundPosition};`}
-		aria-hidden="true"
-	></div>
+{#if nekoImage}
+	{#if !isReducedMotion}
+		<div
+			onclick={onNekoClick}
+			style={`left: ${nekoPosX - 16}px;
+			top: ${nekoPosY - 16}px;
+			background-position: ${backgroundPosition};
+			background-image: url(${nekoImage});
+			width: 32px;
+			height: 32px;
+			position: fixed;
+			image-rendering: pixelated;
+			z-index: 9999;`}
+			aria-hidden="true"
+		></div>
+	{/if}
 {/if}
-
-<style>
-	div {
-		width: 32px;
-		height: 32px;
-		position: fixed;
-		pointer-events: none;
-		image-rendering: pixelated;
-		z-index: 9999;
-		background-image: url($lib/oneko.gif);
-	}
-</style>

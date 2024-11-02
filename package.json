@@ -1,8 +1,15 @@
 {
 	"name": "@yuna0x0/svelte-neko",
 	"license": "MIT",
-	"version": "0.0.1",
-	"repository": "https://github.com/yuna0x0/svelte-neko",
+	"version": "0.1.0",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/yuna0x0/svelte-neko.git"
+	},
+	"contributors": [
+		"Stanislav Khromov <stanislav.khromov+github@gmail.com>",
+		"yuna0x0 <yuna@yuna0x0.com>"
+	],
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -29,31 +36,31 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
-		"svelte": "^4.0.0"
+		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.28.1",
-		"@sveltejs/adapter-auto": "^3.0.0",
-		"@sveltejs/adapter-static": "^3.0.1",
-		"@sveltejs/kit": "^2.0.0",
-		"@sveltejs/package": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^3.0.0",
-		"@types/eslint": "^8.56.0",
-		"@typescript-eslint/eslint-plugin": "^7.0.0",
-		"@typescript-eslint/parser": "^7.0.0",
-		"eslint": "^8.56.0",
+		"@playwright/test": "^1.48.2",
+		"@sveltejs/adapter-auto": "^3.3.1",
+		"@sveltejs/adapter-static": "^3.0.6",
+		"@sveltejs/kit": "^2.7.4",
+		"@sveltejs/package": "^2.3.7",
+		"@sveltejs/vite-plugin-svelte": "^4.0.0",
+		"@types/eslint": "^9.6.1",
+		"@typescript-eslint/eslint-plugin": "^8.12.2",
+		"@typescript-eslint/parser": "^8.12.2",
+		"eslint": "^9.14.0",
 		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-svelte": "^2.36.0-next.4",
-		"prettier": "^3.1.1",
-		"prettier-plugin-svelte": "^3.1.2",
-		"publint": "^0.1.9",
+		"eslint-plugin-svelte": "^2.46.0",
+		"prettier": "^3.3.3",
+		"prettier-plugin-svelte": "^3.2.7",
+		"publint": "^0.2.12",
 		"rollup-plugin-visualizer": "^5.12.0",
-		"svelte": "^5.0.0-next.1",
-		"svelte-check": "^3.6.0",
-		"tslib": "^2.4.1",
-		"typescript": "^5.0.0",
-		"vite": "^5.0.11",
-		"vitest": "^1.2.0"
+		"svelte": "^5.1.9",
+		"svelte-check": "^4.0.5",
+		"tslib": "^2.8.1",
+		"typescript": "^5.6.3",
+		"vite": "^5.4.10",
+		"vitest": "^2.1.4"
 	},
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",

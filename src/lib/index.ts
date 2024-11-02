@@ -1,3 +1,4 @@
 // Reexport your entry components here
 import Neko from './Neko.svelte';
-export { Neko };
+import Neko4 from './Neko4.svelte';
+export { Neko, Neko4 };
