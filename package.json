@@ -2,6 +2,7 @@
 	"name": "@yuna0x0/svelte-neko",
 	"license": "MIT",
 	"version": "0.0.1",
+	"repository": "https://github.com/yuna0x0/svelte-neko",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
