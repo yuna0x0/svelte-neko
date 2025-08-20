@@ -5,11 +5,11 @@
 		toggleTrackingOnClick = false
 	}: {
 		nekoImage: string;
-		tracking: boolean;
-		toggleTrackingOnClick: boolean;
+		tracking?: boolean;
+		toggleTrackingOnClick?: boolean;
 	} = $props();
 
-	let isReducedMotion = $state<Boolean>(true);
+	let isReducedMotion = $state<boolean>(true);
 
 	let nekoPosX = $state(32);
 	let nekoPosY = $state(32);
@@ -19,7 +19,7 @@
 
 	let frameCount = $state(0);
 	let idleTime = $state(0);
-	let idleAnimation: any = $state(null);
+	let idleAnimation: string | null = $state(null);
 	let idleAnimationFrame = $state(0);
 
 	const nekoSpeed = 10;
@@ -117,7 +117,7 @@
 		mousePosY = event.clientY;
 	}
 
-	function onAnimationFrame(timestamp: any) {
+	function onAnimationFrame(timestamp: number) {
 		// Stops execution if the neko element is removed from DOM
 
 		if (!lastFrameTimestamp) {
@@ -130,7 +130,7 @@
 		window.requestAnimationFrame(onAnimationFrame);
 	}
 
-	function setSprite(name: any, frame: any) {
+	function setSprite(name: keyof SpriteSetsType, frame: number) {
 		const sprite =
 			spriteSets[name as keyof SpriteSetsType][
 				frame % spriteSets[name as keyof SpriteSetsType].length
@@ -148,21 +148,21 @@
 
 		// every ~ 20 seconds
 		if (idleTime > 10 && Math.floor(Math.random() * 200) == 0 && idleAnimation == null) {
-			let avalibleIdleAnimations = ['sleeping', 'scratchSelf'];
+			let availableIdleAnimations = ['sleeping', 'scratchSelf'];
 			if (nekoPosX < 32) {
-				avalibleIdleAnimations.push('scratchWallW');
+				availableIdleAnimations.push('scratchWallW');
 			}
 			if (nekoPosY < 32) {
-				avalibleIdleAnimations.push('scratchWallN');
+				availableIdleAnimations.push('scratchWallN');
 			}
 			if (nekoPosX > window.innerWidth - 32) {
-				avalibleIdleAnimations.push('scratchWallE');
+				availableIdleAnimations.push('scratchWallE');
 			}
 			if (nekoPosY > window.innerHeight - 32) {
-				avalibleIdleAnimations.push('scratchWallS');
+				availableIdleAnimations.push('scratchWallS');
 			}
 			idleAnimation =
-				avalibleIdleAnimations[Math.floor(Math.random() * avalibleIdleAnimations.length)];
+				availableIdleAnimations[Math.floor(Math.random() * availableIdleAnimations.length)];
 		}
 
 		switch (idleAnimation) {
@@ -215,12 +215,12 @@
 			return;
 		}
 
-		let direction;
+		let direction = '';
 		direction = diffY / distance > 0.5 ? 'N' : '';
 		direction += diffY / distance < -0.5 ? 'S' : '';
 		direction += diffX / distance > 0.5 ? 'W' : '';
 		direction += diffX / distance < -0.5 ? 'E' : '';
-		setSprite(direction, frameCount);
+		setSprite(direction as keyof SpriteSetsType, frameCount);
 
 		nekoPosX -= (diffX / distance) * nekoSpeed;
 		nekoPosY -= (diffY / distance) * nekoSpeed;

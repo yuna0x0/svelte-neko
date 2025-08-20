@@ -1,5 +1,11 @@
 <script lang="ts">
 	import Neko from '$lib/Neko.svelte';
+
+	const exampleCode = `<script>
+    import { Neko } from '@yuna0x0/svelte-neko';
+<\/script>
+
+<Neko nekoImage="path/to/oneko.gif" toggleTrackingOnClick />`;
 </script>
 
 <h1>@yuna0x0/svelte-neko</h1>
@@ -11,29 +17,13 @@ You can get the <code>oneko.gif</code> from <a href="/oneko.gif">here</a>.
 <h2>Props</h2>
 <code>nekoImage</code> (string): The path to the neko image.
 <br />
-<code>tracking</code> (boolean): Is the neko tracking the mouse?
+<code>tracking</code> (boolean, default: <code>true</code>): Is the neko tracking the mouse?
 <br />
-<code>toggleTrackingOnClick</code> (boolean): Should the neko toggle <code>tracking</code> on click?
+<code>toggleTrackingOnClick</code> (boolean, default: <code>false</code>): Should the neko toggle
+<code>tracking</code>
+on click?
 <br /><br />
 
 <h2>Examples</h2>
 
-Svelte 5:
-<pre>
-    {`<script>
-        import { Neko } from '@yuna0x0/svelte-neko';
-    </script>
-
-    <Neko nekoImage="path/to/oneko.gif" toggleTrackingOnClick />`}
-</pre>
-
-<br />
-
-Svelte 4:
-<pre>
-    {`<script>
-        import { Neko4 } from '@yuna0x0/svelte-neko';
-    </script>
-
-    <Neko nekoImage="path/to/oneko.gif" toggleTrackingOnClick />`}
-</pre>
+<pre><code>{exampleCode}</code></pre>

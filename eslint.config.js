@@ -6,11 +6,11 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default [
 	{
-		files: ['*.svelte'],
 		ignores: [
 			'.DS_Store',
 			'node_modules',
 			'build',
+			'dist',
 			'.svelte-kit',
 			'package',
 			'.env',
@@ -19,7 +19,10 @@ export default [
 			'pnpm-lock.yaml',
 			'package-lock.json',
 			'yarn.lock'
-		],
+		]
+	},
+	{
+		files: ['**/*.svelte'],
 		languageOptions: {
 			parser: svelteEslintParser,
 			parserOptions: {
@@ -40,7 +43,7 @@ export default [
 		}
 	},
 	{
-		files: ['*.js', '*.ts'],
+		files: ['**/*.js', '**/*.ts'],
 		languageOptions: {
 			parser: typescriptEslintParser,
 			parserOptions: {
@@ -49,11 +52,9 @@ export default [
 			}
 		},
 		plugins: {
-			'@typescript-eslint': typescriptEslintPlugin,
-			svelte: eslintPluginSvelte
+			'@typescript-eslint': typescriptEslintPlugin
 		},
 		rules: {
-			...eslintPluginSvelte.configs.recommended.rules,
 			...typescriptEslintPlugin.configs.recommended.rules,
 			...eslintConfigPrettier.rules
 		}

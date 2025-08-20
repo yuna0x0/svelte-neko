@@ -1,62 +1,131 @@
-# svelte-neko
+# @yuna0x0/svelte-neko
 
-A Svelte 4 / 5 port of [oneko.js](https://github.com/adryd325/oneko.js).
+A Svelte component that adds an animated cat that chases your mouse cursor around the screen. This is a Svelte 5 port of the popular [oneko.js](https://github.com/adryd325/oneko.js) library.
 
-Demo: https://svelte-neko.vercel.app/
+**[Live Demo](https://svelte-neko.pages.dev)**
 
-YouTube video:
+## Features
 
-https://www.youtube.com/watch?v=apIJlWJ3HgQ
+- Interactive cat that follows your mouse cursor
+- Smooth animations with sprite-based movement
+- Idle animations when the cat reaches the cursor
+- Wall-scratching animations when near screen edges
+- Respects `prefers-reduced-motion` accessibility settings
+- Compatible with Svelte 5
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Installation
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm install @yuna0x0/svelte-neko
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+## Usage
 
-## Building
+### Svelte 5
 
-To build your library:
+```svelte
+<script>
+	import { Neko } from '@yuna0x0/svelte-neko';
+</script>
+
+<Neko nekoImage="/path/to/oneko.gif" />
+```
+
+## Props
+
+| Prop                    | Type      | Default      | Description                                             |
+| ----------------------- | --------- | ------------ | ------------------------------------------------------- |
+| `nekoImage`             | `string`  | **Required** | Path to the neko sprite image (typically `oneko.gif`)   |
+| `tracking`              | `boolean` | `true`       | Whether the neko should track/follow the mouse cursor   |
+| `toggleTrackingOnClick` | `boolean` | `false`      | Whether clicking the neko should toggle tracking on/off |
+
+## Getting the Neko Image
+
+You'll need a neko sprite sheet image. You can:
+
+1. Download from the [demo site](https://svelte-neko.pages.dev/oneko.gif)
+2. Download from the [original oneko.js repository](https://github.com/adryd325/oneko.js)
+3. Create your own sprite sheet following the 32x32 pixel format
+
+## Examples
+
+### Toggle tracking on click
+
+```svelte
+<script>
+	import { Neko } from '@yuna0x0/svelte-neko';
+</script>
+
+<Neko nekoImage="/oneko.gif" toggleTrackingOnClick={true} />
+```
+
+### Start with tracking disabled
+
+```svelte
+<script>
+	import { Neko } from '@yuna0x0/svelte-neko';
+</script>
+
+<Neko nekoImage="/oneko.gif" tracking={false} />
+```
+
+### Programmatically control tracking
+
+```svelte
+<script>
+	import { Neko } from '@yuna0x0/svelte-neko';
+
+	let isTracking = true;
+
+	function toggleTracking() {
+		isTracking = !isTracking;
+	}
+</script>
+
+<Neko nekoImage="/oneko.gif" tracking={isTracking} />
+
+<button on:click={toggleTracking}>
+	{isTracking ? 'Disable' : 'Enable'} Neko
+</button>
+```
+
+## Accessibility
+
+This component automatically respects the user's `prefers-reduced-motion` setting. When reduced motion is preferred, the neko will not be rendered.
+
+## Development
 
 ```bash
-npm run package
+# Clone the repository
+git clone https://github.com/yuna0x0/svelte-neko.git
+cd svelte-neko
+
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+
+# Run tests
+pnpm test
+
+# Build the library
+pnpm package
 ```
 
-To create a production version of your showcase app:
+## Credits
 
-```bash
-npm run build
-```
+- Original [oneko.js](https://github.com/adryd325/oneko.js) by [@adryd325](https://github.com/adryd325)
+- Forked from [khromov/svelte-neko](https://github.com/khromov/svelte-neko)
 
-You can preview the production build with `npm run preview`.
+## License
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+MIT License - see [LICENSE](LICENSE) file for details.
 
-## Publishing
+## Contributing
 
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
+Contributions are welcome! Please feel free to submit a Pull Request. Make sure to:
 
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
-```
+1. Run `pnpm lint` and `pnpm check` before submitting
+2. Add tests for new features
+3. Update documentation as needed
